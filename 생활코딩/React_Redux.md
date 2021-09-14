@@ -5,7 +5,7 @@
 - [Redux를 사용 하는 이유](#redux를-사용-하는-이유)
   - [Redux가 없는 코드 예제](#redux가-없는-코드-예제)
   - [Redux를 사용한 코드 예제](#redux를-사용한-코드-예제)
-- [react-redux를 사용할 경우]
+- [react-redux를 사용할 경우](#react-redux를 사용할 경우)
 
 ## **Redux**
 - 하나의 State(상태)를 가진다.
