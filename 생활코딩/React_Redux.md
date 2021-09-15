@@ -1,4 +1,9 @@
 ## React-Redux
+- [**개념도**](#개념도)
+
+## **개념도**
+
+![image](https://user-images.githubusercontent.com/45417052/133354979-740403e2-61b2-40cd-9f9f-77bf29d06fda.png)
 
 ---------
 - [**Redux**](#redux)
