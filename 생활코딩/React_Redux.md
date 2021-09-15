@@ -12,10 +12,12 @@
 - [Redux를 사용 하는 이유](#redux를-사용-하는-이유)
   - [Redux가 없는 코드 예제](#redux가-없는-코드-예제)
   - [Redux를 사용한 코드 예제](#redux를-사용한-코드-예제)
+- [react-redux를 사용할 경우](#react-redux를-사용할-경우)
 
 ## **Redux**
 - 하나의 State(상태)를 가진다.
-- App 의 복작성을 낮춘다.
+- App의 복잡성을 낮춘다.
+- 컴포넌트간의 값을 쉽게 바라볼 수 있도록 한다.
 
 ## **개념도**
 <img width="100%" alt="redux" src="https://user-images.githubusercontent.com/90334030/132699645-bae5dcd0-065c-4b15-b388-634bebaa7373.png">
@@ -44,8 +46,9 @@
 
 ### Redux가 없는 코드 예제
 
-> red() 안에서 Green , Blue 의 Component를 직접 점근해서 값을 변경하고 있다.  
+> red() 안에서 Green , Blue 의 Component를 직접 접근해서 값을 변경하고 있다.  
 > 강력한 결합으로 인해서 코드의 유연성을 낮춘다.
+> Redux 없이 React를 구분 할 경우 Component의 공유하는 parent까지 값을 넘겨주고 내려주어야 한다.
 
 ```JSX
 <html>
@@ -84,10 +87,12 @@ red();
 
 ### Redux를 사용한 코드 예제
 
-> red() function은 green, blue를 알지 못한다.  
+> red() function은 green, blue를 알지 못한다. 
+> STORE에 이벤트를 올려 구독중인 모든 Component에 영향을 줄 수 있다.
 > loose coupling 으로 인해서 코드가 유연해 졌다.  
 > store.dispatch({type:'CHANGE_COLOR', color:'red'})를 통해서 reducer를 호출 함  
 > reducer() function에서 state값을 변경한다.  
+> Redux의 재사용성은 래핑(container)을 통해 가능하다.(Redux의 기능만 Container가 가져간다.)
 
 ```JSX
 <!DOCTYPE html>
@@ -140,5 +145,12 @@ red();
 </body>
 </html>
 ```
+
+### react-redux를 사용할 경우
+- 래핑할때 App의 상위에 react-redux의 Provider를 심는다.
+- Provider의 store에 만든 store를 연결해주면 import를 생략해도 된다.
+- connect의 첫번째 인자는 mapStatetoProps로 Redux의 State와 React의 Props를 연결한다.
+- connect의 두번째 인자는 mapDispatchToProps로  Redux의 Dispatch를 React의 Props와 연결한다.
+
 
 

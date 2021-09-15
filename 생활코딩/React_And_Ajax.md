@@ -59,6 +59,8 @@ export default App;
 ```
 
 ### Ajax로 컴포넌트 상태 변경
+- Component에서 Ajax로 데이터를 교환하면 Component를 재사용하기 어렵다
+- 따라서 App으로 종속성을 이동시키는 작업이 필요하다.
 - Component의 값을 변경 하기 위해 할 일
   1. Nav Component의 Props로 Callback function? ^^; 을 넘겨준다.
   2. Callback Function은 파라미터로 Id 값을 받는다.
