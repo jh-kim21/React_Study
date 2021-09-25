@@ -59,6 +59,8 @@ export default App;
 ```
 
 ### Ajax로 컴포넌트 상태 변경
+- Component에서 Ajax로 데이터를 교환하면 Component를 재사용하기 어렵다
+- 따라서 App으로 종속성을 이동시키는 작업이 필요하다.
 - Component의 값을 변경 하기 위해 할 일
   1. Nav Component의 Props로 Callback function? ^^; 을 넘겨준다.
   2. Callback Function은 파라미터로 Id 값을 받는다.
@@ -136,3 +138,93 @@ class Nav extends Component {
 }
 
 ```
+
+### 프리젠테이션 컴포넌트와 컨테이너 컴퍼넌트로 분업화
+
+- 프리젠테이션 컴포넌트
+  - 시각적인 표현만을 담당하고, 다른 앱에 부품으로 사용될 수 있는 컴포넌트
+  - 데이터로부터 종속되지 않은 컴포넌트
+  - `Nav` 컴포넌트 : 정보를 시각화하는 컴포넌트
+- 컨테이너 컴포넌트
+  - 프리젠테이션 콤포넌트를 사용해서 앱에 맞게 제어하는 컴포넌트
+  - 데이터처리, 사용자 상호작용 처리 
+  -  `App` 컴포넌트 : list.json 정보 가져오는 컴포넌트
+
+```jsx
+class Nav extends Component {
+  render(){
+    var listTag = [];
+    for(var i=0; i<this.props.list.length; i++){
+      var li = this.props.list[i];
+      listTag.push(
+        <li key={li.id}>
+          <a href={li.id} data-id={li.id} onClick={function(e){
+            e.preventDefault();
+            console.log('trigger');
+            this.props.onClick(e.target.dataset.id);
+          }.bind(this)}>
+            {li.title}
+          </a>
+        </li>)
+    }
+    return (
+      <nav>
+        <ul>
+          {listTag}
+        </ul>
+      </nav>
+    );
+  }
+}
+
+class Article extends Component{
+  render(){
+    return(
+      <article>
+        <h2>{this.props.title}</h2>
+        {this.props.desc}
+      </article>
+    );
+  }
+}
+
+class App extends Component {
+  state = {
+    article:{title:'Welcome', desc:'Hello, React & Ajax'},
+    list:[]
+  }
+  componentDidMount(){
+    fetch('list.json')
+      .then(function(result){
+        return result.json();
+      })
+      .then(function(json){
+        console.log(json);
+        this.setState({list:json});
+      }.bind(this));
+  }
+  render(){
+    return (
+      <div className="App">
+        <h1>WEB</h1>
+        <Nav list={this.state.list} onClick={function(id){
+          fetch(id+'.json')
+            .then(function(result){
+              return result.json();
+            })
+            .then(function(json){
+              this.setState({
+                article:{
+                  title:json.title,
+                  desc:json.desc
+                }
+              })
+            }.bind(this));
+        }.bind(this)}></Nav>
+        <Article title={this.state.article.title} desc={this.state.article.desc}></Article>
+      </div>
+    )
+  }
+}
+```
+
