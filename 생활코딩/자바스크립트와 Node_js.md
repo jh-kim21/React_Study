@@ -14,7 +14,7 @@ response.end();
 response.writeHead(200);
 /*
 200 : 정상
-303 : 리렉션
+303 : 리디렉션
 404 : Not Found
 */
 ```
@@ -169,6 +169,35 @@ var pathname = url.parse(_url, true).pathname;
         response.end('Not found');
     }
 ```
+
+# 29. Node.js의 패키지 매니저와 PM2
+
+- pm2를 사용하면 서버 관리를 쉽게 할 수 있다.
+  - 서버가 닫히면 자동으로 열린다.
+  - js 업데이트시 자동으로 업데이트된다.
+  - Log를 통해 서버 상태를 확인하기 쉽다.
+
+```
+//설치
+npm install pm2 -g
+
+//실행 (--watch 사용시 자동으로 update)
+pm2 start main.js (--watch)
+
+//모니터링
+pm2 monit
+
+//현재 관리중인 목록 확인
+pm2 list
+
+//로그 확인
+pm2 log
+
+//종료
+pm2 stop main
+
+```
+
 # 32. post 방식으로 전송된 데이터 받기
 
 - form의 method에 "post"를 사용할 경우 url에 하위 속성 내용들이 숨겨진다.
@@ -207,34 +236,6 @@ else if(pathname === '/create_process'){
       response.end('success');
     } 
 ```
-# 29. Node.js의 패키지 매니저와 PM2
-
-- pm2를 사용하면 서버 관리를 쉽게 할 수 있다.
-  - 서버가 닫히면 자동으로 열린다.
-  - js 업데이트시 자동으로 업데이트된다.
-  - Log를 통해 서버 상태를 확인하기 쉽다.
-
-```
-//설치
-npm install pm2 -g
-
-//실행 (--watch 사용시 자동으로 update)
-pm2 start main.js (--watch)
-
-//모니터링
-pm2 monit
-
-//현재 관리중인 목록 확인
-pm2 list
-
-//로그 확인
-pm2 log
-
-//종료
-pm2 stop main
-
-```
-
 
 # 33. 파일 생성과 리디렉션
 
@@ -270,5 +271,3 @@ fs.readdir('./data', function(error, filelist){
         ...
         });
 ```
-test
-test2
