@@ -14,7 +14,7 @@ response.end();
 response.writeHead(200);
 /*
 200 : 정상
-303 : 리렉션
+303 : 리디렉션
 404 : Not Found
 */
 ```
