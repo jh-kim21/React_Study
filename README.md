@@ -4,7 +4,7 @@
 - 프로젝트 아이디어를 기록할 수 있는 공간 마련 : **[Idea_BrainStroming.md](./Idea_BrainStorming.md)**
 
 
-### Study Table of Contents [{-변경 된 일정-}]
+### Study Table of Contents
 
 <details>
 <summary>[Front-End] (펼치기/접기)</summary><br>
