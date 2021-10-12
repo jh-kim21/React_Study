@@ -135,9 +135,68 @@ app.get('*', function(request, response, next){
 });
 ```
 ## 에러 처리
+- 기본적인 404 에러(없는 주소)의 경우 가장 아래에 해당 코드로 에러를 처리한다.
+```JSX
+app.use(function(req,res,next){
+  res.status(404).send(`Sorry cant find that!`)
+});
+```
+- 다른 Middle Ware에서 오류가 나올 경우 해당 코드로 에러를 처리할 수 있다.
+```JSX
+app.use(function(err,req,res,next){
+  console.error(err.stack);
+  res.status(505).send(`Something broke!`)
+});
+```
+
 
 ## 라우터 
+- 라우터를 분리할 경우 앞의 경로가 기본 경로가 된다.
+```JSX
+app.use('/topic', topicRouter);
+```
+- 라우터를 사용할 때 기존과 달리 app이 아닌 express.Router()를 사용한다.
+```JSX
+var express = require('express');
+var router = express.Router();
+
+router.get(`/create`,function(request, response){
+    var title = 'WEB - create';
+    var description = 'Hello, Node.js';
+    var list = template.list(request.list);
+    var html = template.html(title, list, `
+      <form action="/topic/create_process"
+        method = "post">
+        <p><input type="test" name="title" placeholder="title"></p>
+        <p>
+          <textarea name="description" placeholder="description"></textarea>
+        </P>
+        <p>
+          <input type="submit">
+        </p>
+      </form>
+      `,'');
+    response.send(html);
+});
+```
 
 ## 보안
+- http://expressjs.com/en/advanced/best-practice-security.html#dont-use-deprecated-or-vulnerable-versions-of-express
+- Helmet을 사용하면 기본적인 보안은 체크 가능하다.
+```
+npm install --save helmet
+
+var helmet = require('helmet');
+app.use(helmet());
+```
+- dependencie 관련 에러는 nsp를 설치하여 체크한다.
 
 ## Express Generator
+- http://expressjs.com/en/starter/generator.html
+- 자동으로 웹을 만들기 전 기본 Node.js + Express의 세팅을 해주는 프로그램이다.
+```
+npm install express-generator -g
+```
+- express (folder명)으로 자동생성한다.
+- 생성이후 npm install을 통해 node_modules를 받는다.
+- jade라고 html을 더 축약한 포맷이 있으나, 자세히 다루지 않았다.
