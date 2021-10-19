@@ -22,6 +22,8 @@ var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
 ```
 
+- session 활성화하는 코드 다음 다음 부분에 넣어야 한다.
+
 ### 인증 구현
 - 성공했을경우 successRedirect로 보낸다.
 - 실패했을경우 failureRedirect로 보낸다.
@@ -35,6 +37,7 @@ var passport = require('passport')
 
 ### 자격 확인
 - done을 이용하여 자격 확인할 수 있다.
+- Default로 LocalStrategy는 `username`, `password` parameter에서 자격증명을 찾는다.
 - 자격확인의 필드값을 usernameField, passwordField를 변경하여 지정해줄 수 있다.
 
 ```JSX
